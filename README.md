@@ -10,7 +10,7 @@ SSL的全称是Secure socket layer，它是在五层网络抽象（在计算机�
 
 ### 1.1 SSL证书有什么用？
 
-不妨做一个小实验，打开http://info.tsinghua.edu.cn, 你会发现浏览器在该网址左侧标注了不安全。这是因为信息门户没有使用SSL证书。接着，再打开http://www.baidu.com/,  你会发现网址自动做了重定向，指向https://www.baidu.com/,   并且浏览器上改网址左侧有一把小锁（不同浏览器可能显示不同），表示该网站有SSL加密。
+不妨做一个小实验，打开<http://info.tsinghua.edu.cn>, 你会发现浏览器在该网址左侧标注了不安全。这是因为信息门户没有使用SSL证书。接着，再打开<http://www.baidu.com/>,  你会发现网址自动做了重定向，指向<https://www.baidu.com/>,   并且浏览器上改网址左侧有一把小锁（不同浏览器可能显示不同），表示该网站有SSL加密。
 
 简而言之，SSL证书使得网站变得更加安全，其具体实现方法请参考计算机网络课程，本文会教你如何动手为自己的项目配置SSL证书。
 
@@ -215,9 +215,9 @@ SSL的基石是公钥-私钥加密体系。公钥被放在证书中，私钥被�
 
 在[SSL 证书 文件验证-域名验证-文档中心-腾讯云 (tencent.com)](https://cloud.tencent.com/document/product/400/54501)有简单的教程，但是并不详细，而且没有示例代码。
 
-示例代码可以在此处下载：
+示例代码可以在[github仓库](https://github.com/citrusreticulata/ssl-tencent-auth-sample)下载。
 
-https://github.com/citrusreticulata/ssl-tencet-auth-sample
+
 
 
 
