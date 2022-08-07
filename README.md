@@ -123,6 +123,8 @@ SSL的基石是公钥-私钥加密体系。公钥被放在证书中，私钥被�
 |-config
    |-nginx
        |-nginx.conf
+|-dist
+	|-index.html
 ```
 
 其中`Dockerfile`和`docker-compose.yml`指定了docker容器的构建。
@@ -140,6 +142,7 @@ SSL的基石是公钥-私钥加密体系。公钥被放在证书中，私钥被�
    ADD ./.well-known/pki-validation/ /home/wwwroot/default/auth/.well-known/pki-validation/
    #复制nginx配置文件，替换nginx容器中的默认配置
    ADD config/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+   ADD dist/ /usr/share/nginx/html/
    ```
 
 3. `docker-compose.yml`中填入：
@@ -151,11 +154,12 @@ SSL的基石是公钥-私钥加密体系。公钥被放在证书中，私钥被�
        container_name: tencent_test
        image: nginx:latest #nginx镜像
        ports: #避免出现端口映射错误，建议采用字符串格式
-         - "80:80"
+         - "26099:80"
        volumes: 
          #挂载nginx配置文件到容器中，替换nginx容器中的默认配置
          - ./config/nginx:/etc/nginx/conf.d
          - ./.well-known/pki-validation/:/home/wwwroot/default/auth/.well-known/pki-validation/
+         - ./dist:/usr/share/nginx/html/
        restart: always
    ```
 
@@ -164,26 +168,26 @@ SSL的基石是公钥-私钥加密体系。公钥被放在证书中，私钥被�
    ```nginx
    server {
        listen       80;
-       server_name  www.example.com; # 填写你的域名
+       server_name  citrusreticulata.com; # 填写你的域名
    
-       #charset koi8-r;
        access_log  /var/log/nginx/host.access.log  main;
    
        location / {
            root   /usr/share/nginx/html;
-           # ;index  index.html index.htm;
+           index  index.html index.htm;
+           try_files $uri $uri/ /index.html;
        }
    
    #http://域名/.well-known/pki-validation/fileauth.txt
        location /.well-known/pki-validation/ {
            root   /home/wwwroot/default/auth/;
-           #alias   /home/wwwroot/default/.well-known/pki-validation/;
-           index  index.html index.htm;
        }
    }
    ```
 
 5. 运行docker容器。可以在本目录下使用`docker-compose up`命令来启动，如果想挂载在后台，则使用`docker-compose up -d`. 如果想停止，使用`docker-compose down`.
+
+6. 检查运行是否正常。如果运行正常，可以在`http://域名/index.html`看到欢迎内容，可以在`http://域名/.well-known/pki-validation/fileauth.txt`（注意其中的文件名应该重命名了）看到你的验证文本。
 
 #### 3.2.3 等待验证完成
 
