@@ -1,6 +1,6 @@
 # 在软件工程课中配置SSL证书
 
-<p style="text-align:center;">作者：橘子 邮箱：1372722289@qq.com</p>
+<p style="text-align:center;">作者：橘子 邮箱：citrusreticulata@qq.com</p>
 
 ## 1. 什么是SSL证书
 
